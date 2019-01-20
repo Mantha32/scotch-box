@@ -9,17 +9,18 @@ $querykey = "KEY" . md5($query);
 
 $result = $mem->get($querykey);
 
-print "<p> Cache aside pattern</p>";
+print "<p> Read through pattern</p>";
 
 if ($result) {
     print "<p>Data was: " . $result . "</p>";
-    print "<p>Cache aside success!</p><p>Retrieved data from memcached!</p>";
+    print "<p>Read through cache success!</p><p>Retrieved data from memcached!</p>";
 } else {
     $result = $mysqli->query($query);
     $row = $result->fetch_assoc();
-    $mem->set($querykey, $row['title'], 10); 
-    print "<p>Data was: " . $row['title'] . "</p>";
-    print "<p>Data not found in memcached.</p><p>Data retrieved from MySQL and stored in memcached for next time.</p>";
+    $mem->set($querykey, $row['title'], 10);  // set TTL 10
+    $resCache = $mem->get($querykey);
+    print "<p>Data was: " . $resCache . "</p>";
+    print "<p>Data retrieved from MySQL and stored in memcached.</p>";
     
 }
 ?>
