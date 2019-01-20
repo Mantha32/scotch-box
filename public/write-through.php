@@ -34,7 +34,7 @@ if(empty($_POST['filmTitle'])) {
 		exit;
 	}
 	
-	$sql = sprintf('INSERT INTO film_text VALUES ("%d", "%s", "%s");', $idRandom ,   $mysqli->real_escape_string($filmTitle),   $mysqli->real_escape_string($filmDescription);
+	$sql = sprintf('INSERT INTO film_text VALUES ("%d", "%s", "%s");', $idRandom ,   $mysqli->real_escape_string($filmTitle),   $mysqli->real_escape_string($filmDescription));
 
 	$result = $mysqli->query($sql);
 
